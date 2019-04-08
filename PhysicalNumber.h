@@ -10,7 +10,7 @@ class PhysicalNumber {
 
 private :
 Unit unit;
-double size;
+   double  size;
 
 
 public :

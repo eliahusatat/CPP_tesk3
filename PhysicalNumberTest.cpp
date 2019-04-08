@@ -37,6 +37,19 @@ int main() {
     PhysicalNumber c1(3, Unit::TON);
     PhysicalNumber c2(70, Unit::KG);
     PhysicalNumber c3(1000, Unit::G);
+
+    PhysicalNumber d1(-3, Unit::TON);//cant be exit 
+    PhysicalNumber d2(-70, Unit::KG);//cant be exit 
+    PhysicalNumber d3(-1000, Unit::G);//cant be exit 
+
+     PhysicalNumber e1(-45, Unit::MIN);//cant be exit 
+    PhysicalNumber e2(-7, Unit::HOUR);//cant be exit 
+    PhysicalNumber e3(-360, Unit::SEC);//cant be exit 
+
+    PhysicalNumber f1(-350, Unit::M);//cant be exit 
+    PhysicalNumber f2(-4, Unit::KM);//cant be exit 
+    PhysicalNumber f3(-2000, Unit::CM);//cant be exit 
+
     testcase
     .setname("Basic output")
     .CHECK_OUTPUT(a, "2[km]")
@@ -77,6 +90,13 @@ int main() {
     .CHECK_THROWS(a3+b1)
     .CHECK_THROWS(b2-c2)
     .CHECK_THROWS(b1+=c2)
+    
+    .CHECK_THROWS(b1<c3)
+    .CHECK_THROWS(b1>a1)
+    .CHECK_THROWS(a2==c2)
+    .CHECK_THROWS(a3!=b1)
+    .CHECK_THROWS(b2>=c2)
+    .CHECK_THROWS(b1<=c2)
 
 
     .setname("our test checking output:")
@@ -106,8 +126,28 @@ int main() {
     .CHECK_OUTPUT((c1+=c2), "3.07[ton]")
     .CHECK_OUTPUT(a1, "4.35[km]")
     .CHECK_OUTPUT(b-b, "0[m]")
+
+    .CHECK_OUTPUT((c1>c2), "true")
+    .CHECK_OUTPUT((c3<c2) ,"true")
+    .CHECK_OUTPUT((c1<c3), "false")
+    .CHECK_OUTPUT((b1<=b2), "true")
+    .CHECK_OUTPUT((b2>=b3), "true")
+    .CHECK_OUTPUT((b1==b2), "false")
+    .CHECK_OUTPUT((a1==a2), "false")
+    .CHECK_OUTPUT((c1==c2), "false")
+    .CHECK_OUTPUT((c1==c1), "true")
+    .CHECK_OUTPUT((c1!=c3), "true")
+    .CHECK_OUTPUT((c1!=c1), "false")
+    .CHECK_OUTPUT((a1!=a2), "true")
+    .CHECK_OUTPUT((a!=b), "true")
+    .CHECK_OUTPUT((b1==b2), "false")
+    .CHECK_OUTPUT((b1!=b3), "true")
     
-    .CHECK_OUTPUT(c, "2[hour]")
+
+
+
+
+   
     .CHECK_OUTPUT(d, "30[min]")
     .CHECK_OUTPUT(d+c, "150[min]")
     .CHECK_OUTPUT(b+a, "2300[m]")
@@ -126,6 +166,8 @@ int main() {
     .CHECK_OUTPUT(c, "2[hour]")
     .CHECK_OUTPUT(d, "30[min]")
     .CHECK_OUTPUT(d+c, "150[min]")
+
+
 
 
 

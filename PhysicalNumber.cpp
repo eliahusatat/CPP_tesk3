@@ -6,7 +6,7 @@
 using namespace ariel;
 
   
-PhysicalNumber::PhysicalNumber(double size ,Unit unit){
+PhysicalNumber::PhysicalNumber(double  size ,Unit unit){
  this->unit=unit;
  this->size=size;
 }
