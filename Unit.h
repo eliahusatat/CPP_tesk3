@@ -1,6 +1,6 @@
 
-#include <iostream>
-#include <sstream>
-#include <stdexcept>
-using std::cout, std::endl, std::boolalpha, std::istringstream;
-using ariel::PhysicalNumber, ariel::Unit;
+# pragma once
+namespace ariel{
+enum Unit {M,KM,CM,HOUR,MIN,SEC,TON ,KG,G};
+
+};
