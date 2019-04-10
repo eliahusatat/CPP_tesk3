@@ -15,9 +15,12 @@ PhysicalNumber::~PhysicalNumber(){
 
 }
 
+
+
 //PhysicalNumber &first 
- bool CheckIsthesameGroup(  PhysicalNumber first ,PhysicalNumber  secend)
+ bool CheckIsthesameGroup(PhysicalNumber& first,PhysicalNumber& secend )
     {
+
         if (first.getunit()==M||first.getunit()==KM||first.getunit()==CM){
             if (secend.getunit()==M||secend.getunit()==KM||secend.getunit()==CM){     return true;  }
              else {return false;}
@@ -177,21 +180,26 @@ PhysicalNumber::~PhysicalNumber(){
     }
    }
 
+
+
+// 5 =  7 + 6 
 PhysicalNumber PhysicalNumber ::operator+(PhysicalNumber& pn){
- //   ConvertType
- //CheckIsthesameGroup
- bool flag=false;
-  flag = CheckIsthesameGroup(this,pn);
- if (flag==false)throw exception("the argoment not the same grop");
+
+ bool flag  = false;
+ flag = CheckIsthesameGroup(*this,pn);
+
+
+ 
+ if (flag == false)__throw_runtime_error("the argoment not the same grop");
  else {
-     if (this->getunit()==pn.getunit()){
-         this->size=(this->size)+(pn.getsize());
-         return *this;
+     if (this->getunit()==pn.getunit())
+     {
+         return PhysicalNumber(this->getsize()+pn.getsize(),this->getunit()) ;
      }
      else
      {
          PhysicalNumber b (pn.getsize(),pn.getunit()) ;
-         b =ConvertType(b,this->unit);
+         b =ConvertType(b,this->getunit());
          this->size=(this->size)+(b.getsize());
          return *this;
      }

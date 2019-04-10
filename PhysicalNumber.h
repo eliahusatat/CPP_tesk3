@@ -17,8 +17,8 @@ public :
 
 PhysicalNumber(double size, Unit unit);
 ~PhysicalNumber();
-double getsize(){ return size;}
-Unit getunit(){return unit;}
+const double getsize() const{ return size;}
+const Unit getunit() const{return unit;}
 void setsize(double a){size=a;}
 void setunit(Unit a){unit=a;}
 PhysicalNumber operator+(PhysicalNumber& pn);
@@ -39,14 +39,15 @@ const bool operator<=(const PhysicalNumber& pn);
 const bool operator==(const PhysicalNumber& pn);
 const bool operator!=(const PhysicalNumber& pn);
 
-friend bool CheckIsthesameGroup(PhysicalNumber first ,PhysicalNumber secend);
-friend PhysicalNumber ConvertType(PhysicalNumber first ,PhysicalNumber secend);
-
+ 
+      
 friend ostream& operator<<(ostream&  os,const PhysicalNumber& pn);
 friend istream& operator>>(istream& is ,PhysicalNumber& pn);
 
  };
  ostream& operator<<(ostream&  os,const PhysicalNumber& pn);
  istream& operator>>(istream& is ,PhysicalNumber& pn);
+  bool CheckIsthesameGroup( PhysicalNumber& first , PhysicalNumber& secend);
+  PhysicalNumber ConvertType(PhysicalNumber& first ,Unit type);
 
 };
