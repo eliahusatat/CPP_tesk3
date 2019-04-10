@@ -16,9 +16,9 @@ PhysicalNumber::~PhysicalNumber(){
 }
 
 //PhysicalNumber &first 
- bool CheckIsthesameGroup( const PhysicalNumber *first ,PhysicalNumber  secend)
+ bool CheckIsthesameGroup(  PhysicalNumber first ,PhysicalNumber  secend)
     {
-        if (first->getunit()==M||first.getunit()==KM||first.getunit()==CM){
+        if (first.getunit()==M||first.getunit()==KM||first.getunit()==CM){
             if (secend.getunit()==M||secend.getunit()==KM||secend.getunit()==CM){     return true;  }
              else {return false;}
             }

@@ -38,8 +38,10 @@ const bool operator>=(const PhysicalNumber& pn);
 const bool operator<=(const PhysicalNumber& pn);
 const bool operator==(const PhysicalNumber& pn);
 const bool operator!=(const PhysicalNumber& pn);
+
 friend bool CheckIsthesameGroup(PhysicalNumber first ,PhysicalNumber secend);
 friend PhysicalNumber ConvertType(PhysicalNumber first ,PhysicalNumber secend);
+
 friend ostream& operator<<(ostream&  os,const PhysicalNumber& pn);
 friend istream& operator>>(istream& is ,PhysicalNumber& pn);
 
