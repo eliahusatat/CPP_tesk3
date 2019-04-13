@@ -1,24 +1,25 @@
 
 #include <iostream>
 #include <sstream>
-#include <string.h>
+#include <string>
 #include "PhysicalNumber.h"
 #include <exception>
+
 using namespace ariel;
 
   
-PhysicalNumber::PhysicalNumber(double  size ,Unit unit){
+ariel::PhysicalNumber::PhysicalNumber(double  size ,Unit unit){
  this->unit=unit;
  this->size=size;
 }
-PhysicalNumber::~PhysicalNumber(){
+ariel::PhysicalNumber::~PhysicalNumber(){
 
 }
 
 
 
-//PhysicalNumber &first 
- bool CheckIsthesameGroup(PhysicalNumber& first,PhysicalNumber& secend )
+//PhysicalNumber &first  // Good
+ bool ariel::CheckIsthesameGroup(PhysicalNumber& first,PhysicalNumber& secend )
     {
 
         if (first.getunit()==M||first.getunit()==KM||first.getunit()==CM){
@@ -34,7 +35,12 @@ PhysicalNumber::~PhysicalNumber(){
                 else {return false;}
             }
   }
-  bool CheckIsthesameGroup( const PhysicalNumber& first,const PhysicalNumber& secend )
+
+
+
+
+
+  bool ariel::CheckIsthesameGroup( const PhysicalNumber& first,const PhysicalNumber& secend )
     {
 
         if (first.getunit()==M||first.getunit()==KM||first.getunit()==CM){
@@ -50,7 +56,7 @@ PhysicalNumber::~PhysicalNumber(){
                 else {return false;}
             }
   }
- PhysicalNumber ConvertType(PhysicalNumber first ,Unit type)
+ PhysicalNumber ariel::ConvertType(PhysicalNumber& first ,Unit type)
    {
        if (type==M||type==CM||type==KM){
            if (type==M){
@@ -99,7 +105,7 @@ PhysicalNumber::~PhysicalNumber(){
            }
        
      else  if ( type==HOUR||type==MIN||type==SEC){if (type==M){
-         if (type=SEC){
+         if (type==SEC){
                if (first.getunit()==HOUR){
                   first.setsize((first.getsize()*3600) );
                   first.setunit(SEC);
@@ -144,7 +150,7 @@ PhysicalNumber::~PhysicalNumber(){
                   }
          
      }
-       else {if (type=TON){
+       else {if (type==TON){
                if (first.getunit()==KG){
                   first.setsize((first.getsize()*1000) );
                   first.setunit(TON);
@@ -187,25 +193,18 @@ PhysicalNumber::~PhysicalNumber(){
                     }
                
                   }
-         
-
        }
-  
-        
-   
+
     }
+    return first ; 
    }
-
-
-
 // 5 =  7 + 6 
-PhysicalNumber PhysicalNumber ::operator+(PhysicalNumber& pn){
+PhysicalNumber PhysicalNumber::operator+(PhysicalNumber& pn){
 
  bool flag  = false;
  flag = CheckIsthesameGroup(*this,pn);
 
 
- 
  if (flag == false)__throw_runtime_error("the argoment not the same grop");
  else {
      if (this->getunit()==pn.getunit())
@@ -214,9 +213,9 @@ PhysicalNumber PhysicalNumber ::operator+(PhysicalNumber& pn){
      }
      else
      {
-         PhysicalNumber shibot (pn.getsize(),pn.getunit()) ;
-         shibot =ConvertType(shibot,this->getunit());
-         this->size=(this->size)+(shibot.getsize());
+         PhysicalNumber clone  (pn.getsize(),pn.getunit()) ;
+         clone =ConvertType(clone,this->getunit());
+         this->size=(this->size)+(clone.getsize());
          return *this;
      }
      
@@ -224,14 +223,13 @@ PhysicalNumber PhysicalNumber ::operator+(PhysicalNumber& pn){
 //return pn;
 }
 
-PhysicalNumber& PhysicalNumber ::operator+=(const PhysicalNumber& pn){
+PhysicalNumber& PhysicalNumber::operator+=(const PhysicalNumber& pn){
    
- bool flag  = false;
- flag = CheckIsthesameGroup(*this,pn);
+
 
 
  
- if (flag == false)__throw_runtime_error("the argoment not the same grop");
+ if (CheckIsthesameGroup(*this,pn) == false)__throw_runtime_error("the argoment not the same grop");
  else {
      if (this->getunit()==pn.getunit())
      {
@@ -323,6 +321,8 @@ PhysicalNumber& PhysicalNumber::operator--(){
 
 const bool PhysicalNumber::operator>(const PhysicalNumber& pn){
     bool flag  = false;
+    // KM  = 2.1 MT = 3100
+
      
  flag = CheckIsthesameGroup(*this,pn);
  if (flag == false)__throw_runtime_error("the argoment not the same grop");
@@ -343,7 +343,9 @@ const bool PhysicalNumber::operator>(const PhysicalNumber& pn){
 }
 const bool PhysicalNumber::operator<(const PhysicalNumber& pn){
  bool flag  = false;
-     
+ 
+
+
  flag = CheckIsthesameGroup(*this,pn);
  if (flag == false)__throw_runtime_error("the argoment not the same grop");
  else {
@@ -362,7 +364,7 @@ const bool PhysicalNumber::operator<(const PhysicalNumber& pn){
 }
 const bool PhysicalNumber::operator>=(const PhysicalNumber& pn){
  bool flag  = false;
-     
+    
  flag = CheckIsthesameGroup(*this,pn);
  if (flag == false)__throw_runtime_error("the argoment not the same grop");
  else {
@@ -438,12 +440,45 @@ const bool PhysicalNumber::operator!=(const PhysicalNumber& pn){
    }
 }
 
- ostream& ariel::operator<<(ostream&  os,const PhysicalNumber& pn){
-return os<<" " ;
+ostream& ariel::operator<<(ostream&  out,const PhysicalNumber& pn){
+ std::string unit ; 
+ switch (pn.getunit())
+    {
+      case 0 : unit = "KM" ; break;
+      case 1 : unit = "M" ; break;
+      case 2 : unit = "CM" ; break;
+      case 3 : unit = "HOUR" ; break;
+      case 4 : unit =  "MIN" ; break;
+      case 5 : unit =  "SEC" ; break; 
+      case 6 : unit = "TON" ; break;
+      case 7 : unit =  "KG" ; break;
+      case 8 : unit = "G" ; break;
+    }
+return out << pn.getsize()  << "["  <<  unit  << "]" << endl;
 }
- istream& ariel::operator>>(istream& is ,PhysicalNumber& pn){
-return is;
-}
+
+
+istream& ariel::operator>>(istream& is ,PhysicalNumber& pn){
+  int temp ; 
+  double size ; 
+  is >> size ;
+  pn.setsize(size); 
+  is >> temp ; 
+     switch (temp)
+    {
+      case 0 : pn.setunit(KM); break;
+      case 1 : pn.setunit(M) ; break;
+      case 2 : pn.setunit(CM); break;
+      case 3 : pn.setunit(HOUR) ; break;
+      case 4 : pn.setunit(MIN) ; break;
+      case 5 : pn.setunit(SEC) ; break; 
+      case 6 : pn.setunit(TON) ; break;
+      case 7 : pn.setunit(KG); break;
+      case 8 : pn.setunit(G) ; break;
+    } 
+   return is ; 
+ }
+
 
 
 

@@ -10,7 +10,7 @@ class PhysicalNumber {
 
 private :
 Unit unit;
-   double  size;
+double size;
 
 
 public :
@@ -45,10 +45,23 @@ friend ostream& operator<<(ostream&  os,const PhysicalNumber& pn);
 friend istream& operator>>(istream& is ,PhysicalNumber& pn);
 
  };
+
+ 
  ostream& operator<<(ostream&  os,const PhysicalNumber& pn);
  istream& operator>>(istream& is ,PhysicalNumber& pn);
+
+
   bool CheckIsthesameGroup( PhysicalNumber& first , PhysicalNumber& secend);
   bool CheckIsthesameGroup( const PhysicalNumber& first,const PhysicalNumber& secend );
   PhysicalNumber ConvertType(PhysicalNumber& first ,Unit type);
 
 };
+
+
+
+
+
+
+
+
+

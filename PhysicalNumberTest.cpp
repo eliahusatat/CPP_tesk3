@@ -7,7 +7,7 @@
 
 
 #include <iostream>
-#include <sstream>
+
 using std::cout, std::endl, std::istringstream;
 #include "PhysicalNumber.h"
 using ariel::PhysicalNumber, ariel::Unit;
