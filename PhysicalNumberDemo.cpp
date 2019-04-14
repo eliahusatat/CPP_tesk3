@@ -43,9 +43,10 @@ int main() {
   // }
   // return 100;
 
-    PhysicalNumber n (3,Unit::KM);
-    ariel::cin >> n ; 
-    std::cout << n ; 
+    PhysicalNumber n (3,Unit::M);
+    std::cin >> n ; 
+    cout << n  << endl;
+
     return 0;
 
 }

@@ -22,18 +22,15 @@ ariel::PhysicalNumber::~PhysicalNumber(){
  bool ariel::CheckIsthesameGroup(PhysicalNumber& first,PhysicalNumber& secend )
     {
 
-        if (first.getunit()==M||first.getunit()==KM||first.getunit()==CM){
-            if (secend.getunit()==M||secend.getunit()==KM||secend.getunit()==CM){     return true;  }
-             else {return false;}
-            }
-        else if (first.getunit()==HOUR||first.getunit()==MIN||first.getunit()==SEC){
-             if (secend.getunit()==HOUR||secend.getunit()==MIN||secend.getunit()==SEC){     return true;  }
-             else {return false;}
-            }
-        else  {
-                 if (secend.getunit()==TON||secend.getunit()==KG||secend.getunit()==G){     return true;  }
-                else {return false;}
-            }
+        if ((first.getunit()==M||first.getunit()==KM||first.getunit()==CM)&& (secend.getunit()==M||secend.getunit()==KM||secend.getunit()==CM)) 
+              return true;
+        else if ((first.getunit()==HOUR||first.getunit()==MIN||first.getunit()==SEC) && (secend.getunit()==HOUR||secend.getunit()==MIN||secend.getunit()==SEC))
+                return true;  
+        else if   ((first.getunit()==TON||first.getunit()==KG||first.getunit()==G) && (secend.getunit()==TON||secend.getunit()==KG||secend.getunit()==G)) 
+                return true ; 
+        else 
+              return false  ; 
+            
   }
 
 
@@ -58,145 +55,47 @@ ariel::PhysicalNumber::~PhysicalNumber(){
   }
  PhysicalNumber ariel::ConvertType(PhysicalNumber& first ,Unit type)
    {
-       if (type==M||type==CM||type==KM){
-           if (type==M){
-               if (first.getunit()==KM){
-                  first.setsize((first.getsize()*1000) );
-                  first.setunit(M);
-                  return first;
-               }
-               else
-               {
-                  first.setsize((first.getsize()/100) );
-                  first.setunit(M);
-                  return first;               }
-               
-           }
-           else if (type==CM)
-           {
-                 if (first.getunit()==KM){
-                  first.setsize((first.getsize()*100000) );
-                  first.setunit(CM);
-                  return first;
-               }
-               else
-                 {
-                  first.setsize((first.getsize()*100) );
-                  first.setunit(CM);
-                  return first;            
-                  }
-               
-                }
-           
-           else {
-                 if (first.getunit()==M){
-                  first.setsize((first.getsize()*100000) );
-                  first.setunit(KM);
-                  return first;
-                 }
-                  else
-                 {
-                    first.setsize((first.getsize()*100) );
-                    first.setunit(KM);
-                     return first;             
-                    }
-               
-                  }
-           }
+     switch (type)
+     {
+       case Unit::TON:
+       if(first.getunit() == Unit::KG) {first.setsize(first.getsize()/1000);first.setunit(Unit::TON);}
+       else if(first.getunit() == Unit::G) {first.setsize(first.getsize()/1000000);first.setunit(Unit::TON);}
+       break;
+       case Unit::KG:
+       if(first.getunit() == Unit::TON) {first.setsize(first.getsize()*1000);first.setunit(Unit::KG);}
+       else if(first.getunit() == Unit::G) {first.setsize(first.getsize()/1000);first.setunit(Unit::KG);}
+       break;
+       case Unit::G:
+       if(first.getunit() == Unit::TON) {first.setsize(first.getsize()*1000000);first.setunit(Unit::G);}
+       else if(first.getunit() == Unit::KG) {first.setsize(first.getsize()*1000);first.setunit(Unit::G);}
+       break;
+       case Unit::KM:
+       if(first.getunit() == Unit::M) {first.setsize(first.getsize()/1000);first.setunit(Unit::KM);}
+       else if(first.getunit() == Unit::CM) {first.setsize(first.getsize()/100000);first.setunit(Unit::KM);}
+       break;
+       case Unit::M:
+       if(first.getunit() == Unit::KM) {first.setsize(first.getsize()*1000);first.setunit(Unit::M);}
+       else if(first.getunit() == Unit::CM) {first.setsize(first.getsize()/100);first.setunit(Unit::M);}
+       break;
+       case Unit::CM:
+       if(first.getunit() == Unit::KM) {first.setsize(first.getsize()*100000);first.setunit(Unit::CM);}
+       else if(first.getunit() == Unit::M) {first.setsize(first.getsize()*100);first.setunit(Unit::CM);}
+       break;
+       case Unit::HOUR:
+       if(first.getunit() == Unit::MIN) {first.setsize(first.getsize()/60);first.setunit(Unit::HOUR);}
+       else if(first.getunit() == Unit::SEC) {first.setsize(first.getsize()/3600);first.setunit(Unit::HOUR);}
+       break;
+       case Unit::MIN:
+       if(first.getunit() == Unit::HOUR) {first.setsize(first.getsize()*60);first.setunit(Unit::MIN);}
+       else if(first.getunit() == Unit::SEC) {first.setsize(first.getsize()/60);first.setunit(Unit::MIN);}
+       break;
+       case Unit::SEC:
+       if(first.getunit() == Unit::HOUR) {first.setsize(first.getsize()*3600);first.setunit(Unit::SEC);}
+       else if(first.getunit() == Unit::MIN) {first.setsize(first.getsize()*60);first.setunit(Unit::SEC);}
+       break;
        
-     else  if ( type==HOUR||type==MIN||type==SEC){if (type==M){
-         if (type==SEC){
-               if (first.getunit()==HOUR){
-                  first.setsize((first.getsize()*3600) );
-                  first.setunit(SEC);
-                  return first;
-               }
-               else
-               {
-                  first.setsize((first.getsize()*60) );
-                  first.setunit(SEC);
-                  return first;               }
-               
-           }
-           else if (type==MIN)
-           {
-                 if (first.getunit()==SEC){
-                  first.setsize((first.getsize()/60) );
-                  first.setunit(MIN);
-                  return first;
-               }
-               else
-                 {
-                  first.setsize((first.getsize()*60) );
-                  first.setunit(MIN);
-                  return first;            
-                  }
-               
-                }
-           
-           else  {
-                    if (first.getunit()==MIN){
-                    first.setsize((first.getsize()/60) );
-                    first.setunit(HOUR);
-                    return first;
-                  }
-                   else
-                    {
-                    first.setsize((first.getsize()/3600) );
-                    first.setunit(HOUR);
-                     return first;             
-                    }
-               
-                  }
-         
      }
-       else {if (type==TON){
-               if (first.getunit()==KG){
-                  first.setsize((first.getsize()*1000) );
-                  first.setunit(TON);
-                  return first;
-               }
-               else
-               {
-                  first.setsize((first.getsize()*1000000) );
-                  first.setunit(TON);
-                  return first;               }
-               
-           }
-           else if (type==G)
-           {
-                 if (first.getunit()==TON){
-                  first.setsize((first.getsize()/1000000) );
-                  first.setunit(G);
-                  return first;
-               }
-               else
-                 {
-                  first.setsize((first.getsize()/1000) );
-                  first.setunit(G);
-                  return first;            
-                  }
-               
-                }
-           
-           else  {
-                    if (first.getunit()==TON){
-                    first.setsize((first.getsize()/1000) );
-                    first.setunit(KG);
-                    return first;
-                  }
-                   else
-                    {
-                    first.setsize((first.getsize()/1000) );
-                    first.setunit(KG);
-                     return first;             
-                    }
-               
-                  }
-       }
-
-    }
-    return first ; 
+     return first ;
    }
 // 5 =  7 + 6 
 PhysicalNumber PhysicalNumber::operator+(PhysicalNumber& pn){
@@ -205,7 +104,7 @@ PhysicalNumber PhysicalNumber::operator+(PhysicalNumber& pn){
  flag = CheckIsthesameGroup(*this,pn);
 
 
- if (flag == false)__throw_runtime_error("the argoment not the same grop");
+ if (flag == false)__throw_runtime_error("the argoment not the same grop10");
  else {
      if (this->getunit()==pn.getunit())
      {
@@ -215,8 +114,8 @@ PhysicalNumber PhysicalNumber::operator+(PhysicalNumber& pn){
      {
          PhysicalNumber clone  (pn.getsize(),pn.getunit()) ;
          clone =ConvertType(clone,this->getunit());
-         this->size=(this->size)+(clone.getsize());
-         return *this;
+         clone.size=(this->size)+(clone.getsize());
+         return clone;
      }
      
  }
@@ -228,23 +127,26 @@ PhysicalNumber& PhysicalNumber::operator+=(const PhysicalNumber& pn){
 
 
 
- 
- if (CheckIsthesameGroup(*this,pn) == false)__throw_runtime_error("the argoment not the same grop");
- else {
-     if (this->getunit()==pn.getunit())
+ cout << *this << "<<<<<<<<<<<<<<<<<<<<<<" << endl;
+   cout << pn << "<<<<<<<<<<<<<<<<<<<<<< shibot" << endl;
+bool flag  = false;
+ flag = CheckIsthesameGroup(*this,pn);
+ if (flag == false)__throw_runtime_error("the argoment not the same grop2");
+  
+     if (this->getunit() == pn.getunit())
      {
-       this->size=this->getsize()+pn.getsize();
+       this->size= this->getsize() + pn.getsize();
          return *this  ;
      }
      else
      {
-         PhysicalNumber shibot (pn.getsize(),pn.getunit()) ;
+        PhysicalNumber shibot (pn.getsize(),pn.getunit()) ;
+        
         shibot =ConvertType(shibot,this->getunit());
          this->size=(this->size)+(shibot.getsize());
          return *this;
      }
      
- }
     }
 
 const PhysicalNumber PhysicalNumber::operator+(){
@@ -256,14 +158,14 @@ const PhysicalNumber PhysicalNumber::operator+(){
  
 }
 
-PhysicalNumber  PhysicalNumber ::operator-(PhysicalNumber& pn){
+PhysicalNumber  PhysicalNumber::operator-(PhysicalNumber& pn){
     
  bool flag  = false;
  flag = CheckIsthesameGroup(*this,pn);
 
 
  
- if (flag == false)__throw_runtime_error("the argoment not the same grop");
+ if (flag == false)__throw_runtime_error("the argoment not the same grop2");
  else {
      if (this->getunit()==pn.getunit())
      {
@@ -271,10 +173,10 @@ PhysicalNumber  PhysicalNumber ::operator-(PhysicalNumber& pn){
      }
      else
      {
-         PhysicalNumber shibot (pn.getsize(),pn.getunit()) ;
-         shibot =ConvertType(shibot,this->getunit());
-         this->size=(this->size)-(shibot.getsize());
-         return *this;
+        PhysicalNumber clone  (pn.getsize(),pn.getunit()) ;
+         clone =ConvertType(clone,this->getunit());
+         clone.size=(this->size)-(clone.getsize());
+         return clone;
      }
      
  }
@@ -286,7 +188,7 @@ PhysicalNumber& PhysicalNumber ::operator-=(const PhysicalNumber& pn){
 
 
  
- if (flag == false)__throw_runtime_error("the argoment not the same grop");
+ if (flag == false)__throw_runtime_error("the argoment not the same grop3");
  else {
      if (this->getunit()==pn.getunit())
      {
@@ -307,7 +209,7 @@ PhysicalNumber& PhysicalNumber ::operator-=(const PhysicalNumber& pn){
 
 const PhysicalNumber PhysicalNumber::operator-(){
         this->size=-1*this->getsize();
-         return *this;
+         return PhysicalNumber(this->getsize(),this->getunit());
      
 }
 PhysicalNumber& PhysicalNumber::operator++(){
@@ -325,7 +227,7 @@ const bool PhysicalNumber::operator>(const PhysicalNumber& pn){
 
      
  flag = CheckIsthesameGroup(*this,pn);
- if (flag == false)__throw_runtime_error("the argoment not the same grop");
+ if (flag == false)__throw_runtime_error("the argoment not the same grop4");
  else {
      if (this->getunit()==pn.getunit()){
          if (this->getsize()>pn.getsize()){return true;}
@@ -347,7 +249,7 @@ const bool PhysicalNumber::operator<(const PhysicalNumber& pn){
 
 
  flag = CheckIsthesameGroup(*this,pn);
- if (flag == false)__throw_runtime_error("the argoment not the same grop");
+ if (flag == false)__throw_runtime_error("the argoment not the same grop5");
  else {
      if (this->getunit()==pn.getunit()){
          if (this->getsize()<pn.getsize()){return true;}
@@ -366,7 +268,7 @@ const bool PhysicalNumber::operator>=(const PhysicalNumber& pn){
  bool flag  = false;
     
  flag = CheckIsthesameGroup(*this,pn);
- if (flag == false)__throw_runtime_error("the argoment not the same grop");
+ if (flag == false)__throw_runtime_error("the argoment not the same grop6");
  else {
      if (this->getunit()==pn.getunit()){
          if (this->getsize()>=pn.getsize()){return true;}
@@ -385,7 +287,7 @@ const bool PhysicalNumber::operator<=(const PhysicalNumber& pn){
  bool flag  = false;
      
  flag = CheckIsthesameGroup(*this,pn);
- if (flag == false)__throw_runtime_error("the argoment not the same grop");
+ if (flag == false)__throw_runtime_error("the argoment not the same grop7");
  else {
      if (this->getunit()==pn.getunit()){
          if (this->getsize()<=pn.getsize()){return true;}
@@ -404,7 +306,7 @@ const bool PhysicalNumber::operator==(const PhysicalNumber& pn){
  bool flag  = false;
      
  flag = CheckIsthesameGroup(*this,pn);
- if (flag == false)__throw_runtime_error("the argoment not the same grop");
+ if (flag == false)__throw_runtime_error("the argoment not the same grop8");
  else {
      if (this->getunit()==pn.getunit()){
          if (this->getsize()==pn.getsize()){return true;}
@@ -424,7 +326,7 @@ const bool PhysicalNumber::operator!=(const PhysicalNumber& pn){
  bool flag  = false;
      
  flag = CheckIsthesameGroup(*this,pn);
- if (flag == false)__throw_runtime_error("the argoment not the same grop");
+ if (flag == false)__throw_runtime_error("the argoment not the same grop9");
  else {
      if (this->getunit()==pn.getunit()){
          if (this->getsize()!=pn.getsize()){return true;}
@@ -444,38 +346,44 @@ ostream& ariel::operator<<(ostream&  out,const PhysicalNumber& pn){
  std::string unit ; 
  switch (pn.getunit())
     {
-      case 0 : unit = "KM" ; break;
-      case 1 : unit = "M" ; break;
-      case 2 : unit = "CM" ; break;
-      case 3 : unit = "HOUR" ; break;
-      case 4 : unit =  "MIN" ; break;
-      case 5 : unit =  "SEC" ; break; 
-      case 6 : unit = "TON" ; break;
-      case 7 : unit =  "KG" ; break;
-      case 8 : unit = "G" ; break;
+      case 0 : unit = "km" ; break;
+      case 1 : unit = "m" ; break;
+      case 2 : unit = "cm" ; break;
+      case 3 : unit = "hour" ; break;
+      case 4 : unit =  "min" ; break;
+      case 5 : unit =  "sec" ; break; 
+      case 6 : unit = "ton" ; break;
+      case 7 : unit =  "kg" ; break;
+      case 8 : unit = "g" ; break;
     }
-return out << pn.getsize()  << "["  <<  unit  << "]" << endl;
+return (out << pn.getsize()  << "["  <<  unit  << "]" );
 }
 
 
 istream& ariel::operator>>(istream& is ,PhysicalNumber& pn){
-  int temp ; 
-  double size ; 
-  is >> size ;
-  pn.setsize(size); 
-  is >> temp ; 
-     switch (temp)
-    {
-      case 0 : pn.setunit(KM); break;
-      case 1 : pn.setunit(M) ; break;
-      case 2 : pn.setunit(CM); break;
-      case 3 : pn.setunit(HOUR) ; break;
-      case 4 : pn.setunit(MIN) ; break;
-      case 5 : pn.setunit(SEC) ; break; 
-      case 6 : pn.setunit(TON) ; break;
-      case 7 : pn.setunit(KG); break;
-      case 8 : pn.setunit(G) ; break;
-    } 
+  std::string input ;
+  is >> input ;
+
+  string sizeInput = input.substr(0,input.find("["));
+  // stringstream sizeStream(sizeInput); 
+  // double tempSize ; 
+  // sizeStream >> tempSize ; 
+  // pn.setsize(tempSize);
+  string unitInput = input.substr(input.find('[')+1,input.find(']')-2);
+
+
+      cout << unitInput << endl ; 
+      if(unitInput.compare("g") == 0 ) pn.setunit(G) ; 
+      if(unitInput.compare("km") == 0 )  pn.setunit(KM); 
+      if(unitInput.compare("m") == 0) pn.setunit(M) ; 
+      if(unitInput.compare("cm") == 0 ) pn.setunit(CM); 
+      if(unitInput.compare("hour") == 0) pn.setunit(HOUR) ; 
+      if(unitInput.compare("min") == 0) pn.setunit(MIN) ; 
+      if(unitInput.compare("sec") == 0)  pn.setunit(SEC) ;
+      if(unitInput.compare("ton") == 0) pn.setunit(TON) ; 
+      if(unitInput.compare("kg") == 0) pn.setunit(KG); 
+
+
    return is ; 
  }
 
