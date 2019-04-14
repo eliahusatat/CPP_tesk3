@@ -221,7 +221,7 @@ PhysicalNumber& PhysicalNumber::operator--(){
     return *this;
 }
 
-const bool PhysicalNumber::operator>(const PhysicalNumber& pn){
+ bool PhysicalNumber::operator>(const PhysicalNumber& pn){
     bool flag  = false;
     // KM  = 2.1 MT = 3100
 
@@ -243,7 +243,7 @@ const bool PhysicalNumber::operator>(const PhysicalNumber& pn){
    }
 
 }
-const bool PhysicalNumber::operator<(const PhysicalNumber& pn){
+ bool PhysicalNumber::operator<(const PhysicalNumber& pn){
  bool flag  = false;
  
 
@@ -264,7 +264,7 @@ const bool PhysicalNumber::operator<(const PhysicalNumber& pn){
      }
    }
 }
-const bool PhysicalNumber::operator>=(const PhysicalNumber& pn){
+ bool PhysicalNumber::operator>=(const PhysicalNumber& pn){
  bool flag  = false;
     
  flag = CheckIsthesameGroup(*this,pn);
@@ -283,7 +283,7 @@ const bool PhysicalNumber::operator>=(const PhysicalNumber& pn){
      }
    }
 }
-const bool PhysicalNumber::operator<=(const PhysicalNumber& pn){
+ bool PhysicalNumber::operator<=(const PhysicalNumber& pn){
  bool flag  = false;
      
  flag = CheckIsthesameGroup(*this,pn);
@@ -302,7 +302,7 @@ const bool PhysicalNumber::operator<=(const PhysicalNumber& pn){
      }
    }
 }
-const bool PhysicalNumber::operator==(const PhysicalNumber& pn){
+ bool PhysicalNumber::operator==(const PhysicalNumber& pn){
  bool flag  = false;
      
  flag = CheckIsthesameGroup(*this,pn);
@@ -322,7 +322,7 @@ const bool PhysicalNumber::operator==(const PhysicalNumber& pn){
    }
 }
 
-const bool PhysicalNumber::operator!=(const PhysicalNumber& pn){
+ bool PhysicalNumber::operator!=(const PhysicalNumber& pn){
  bool flag  = false;
      
  flag = CheckIsthesameGroup(*this,pn);

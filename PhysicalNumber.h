@@ -31,13 +31,12 @@ const PhysicalNumber operator-();
 
 PhysicalNumber& operator++();
 PhysicalNumber& operator--();
-
-const bool operator>(const PhysicalNumber& pn);
-const bool operator<(const PhysicalNumber& pn);
-const bool operator>=(const PhysicalNumber& pn);
-const bool operator<=(const PhysicalNumber& pn);
-const bool operator==(const PhysicalNumber& pn);
-const bool operator!=(const PhysicalNumber& pn);
+ bool operator>(const PhysicalNumber& pn);
+ bool operator<(const PhysicalNumber& pn);
+ bool operator>=(const PhysicalNumber& pn);
+ bool operator<=(const PhysicalNumber& pn);
+ bool operator==(const PhysicalNumber& pn);
+ bool operator!=(const PhysicalNumber& pn);
 
  
       
