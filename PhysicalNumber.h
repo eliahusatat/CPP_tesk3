@@ -31,12 +31,13 @@ const PhysicalNumber operator-();
 
 PhysicalNumber& operator++();
 PhysicalNumber& operator--();
- bool operator>(const PhysicalNumber& pn);
- bool operator<(const PhysicalNumber& pn);
- bool operator>=(const PhysicalNumber& pn);
- bool operator<=(const PhysicalNumber& pn);
- bool operator==(const PhysicalNumber& pn);
- bool operator!=(const PhysicalNumber& pn);
+
+const bool operator>(const PhysicalNumber& pn);
+const bool operator<(const PhysicalNumber& pn);
+const bool operator>=(const PhysicalNumber& pn);
+const bool operator<=(const PhysicalNumber& pn);
+const bool operator==(const PhysicalNumber& pn);
+const bool operator!=(const PhysicalNumber& pn);
 
  
       
@@ -50,7 +51,6 @@ friend istream& operator>>(istream& is ,PhysicalNumber& pn);
  istream& operator>>(istream& is ,PhysicalNumber& pn);
 
 
-  bool CheckIsthesameGroup( PhysicalNumber& first , PhysicalNumber& secend);
   bool CheckIsthesameGroup( const PhysicalNumber& first,const PhysicalNumber& secend );
   PhysicalNumber ConvertType(PhysicalNumber& first ,Unit type);
 

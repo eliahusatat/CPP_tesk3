@@ -1,12 +1,18 @@
 
-# pragma once
+#pragma once
 
-namespace ariel{
-enum Unit {KM,M,CM,HOUR,MIN,SEC,TON,KG,G };
-
-
+namespace ariel
+{
+enum  Unit
+{
+    KM,
+    M,
+    CM,
+    HOUR,
+    MIN,
+    SEC,
+    TON,
+    KG,
+    G 
 };
-
-
-
-
+};
