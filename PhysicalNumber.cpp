@@ -169,7 +169,7 @@ PhysicalNumber ariel::ConvertType(PhysicalNumber &first, Unit type)
     return first;
 }
 
-PhysicalNumber PhysicalNumber::operator+(PhysicalNumber &pn)
+PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber &pn) const
 {
 
     bool flag = false;
@@ -214,12 +214,12 @@ PhysicalNumber &PhysicalNumber::operator+=(const PhysicalNumber &pn)
     }
 }
 
-const PhysicalNumber PhysicalNumber::operator+()
+PhysicalNumber PhysicalNumber::operator+() const
 {
     return *this;
 }
 
-PhysicalNumber PhysicalNumber::operator-(PhysicalNumber &pn)
+PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber &pn) const 
 {
 
     bool flag = false;
@@ -262,7 +262,7 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &pn)
     }
 }
 
-const PhysicalNumber PhysicalNumber::operator-()
+PhysicalNumber PhysicalNumber::operator-() const
 {
 
     return PhysicalNumber(this->getsize() * -1, this->getunit());
@@ -278,7 +278,7 @@ PhysicalNumber &PhysicalNumber::operator--()
     return *this;
 }
 
-const bool PhysicalNumber::operator>(const PhysicalNumber &pn)
+bool PhysicalNumber::operator>(const PhysicalNumber &pn) const 
 {
     bool flag = false;
 
@@ -309,7 +309,7 @@ const bool PhysicalNumber::operator>(const PhysicalNumber &pn)
         }
     }
 }
-const bool PhysicalNumber::operator<(const PhysicalNumber &pn)
+ bool PhysicalNumber::operator<(const PhysicalNumber &pn) const
 {
     bool flag = false;
 
@@ -340,7 +340,7 @@ const bool PhysicalNumber::operator<(const PhysicalNumber &pn)
         }
     }
 }
-const bool PhysicalNumber::operator>=(const PhysicalNumber &pn)
+ bool PhysicalNumber::operator>=(const PhysicalNumber &pn) const
 {
     bool flag = false;
 
@@ -371,7 +371,7 @@ const bool PhysicalNumber::operator>=(const PhysicalNumber &pn)
         }
     }
 }
-const bool PhysicalNumber::operator<=(const PhysicalNumber &pn)
+ bool PhysicalNumber::operator<=(const PhysicalNumber &pn) const
 {
     bool flag = false;
 
@@ -402,7 +402,7 @@ const bool PhysicalNumber::operator<=(const PhysicalNumber &pn)
         }
     }
 }
-const bool PhysicalNumber::operator==(const PhysicalNumber &pn)
+ bool PhysicalNumber::operator==(const PhysicalNumber &pn) const
 {
     bool flag = false;
 
@@ -433,7 +433,7 @@ const bool PhysicalNumber::operator==(const PhysicalNumber &pn)
     }
 }
 
-const bool PhysicalNumber::operator!=(const PhysicalNumber &pn)
+ bool PhysicalNumber::operator!=(const PhysicalNumber &pn) const
 {
     bool flag = false;
 
@@ -465,7 +465,7 @@ const bool PhysicalNumber::operator!=(const PhysicalNumber &pn)
     }
 }
 
-ostream &ariel::operator<<(ostream &out, const PhysicalNumber &pn)
+ostream &ariel::operator<<(ostream &out, const PhysicalNumber &pn) 
 {
     std::string unit;
     switch (pn.getunit())
