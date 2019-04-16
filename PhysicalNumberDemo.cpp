@@ -13,7 +13,8 @@ using std::cout, std::endl, std::boolalpha, std::istringstream;
 // #include "Unit.h"
 using ariel::PhysicalNumber, ariel::Unit;
 
-int main() {
+int main()
+{
   // try {
   //   PhysicalNumber a(2, Unit::KM);   // 2 kilometers
   //   PhysicalNumber b(300, Unit::M);  // 300 meters
@@ -34,7 +35,7 @@ int main() {
   //   cout << a << endl;   // Prints "1700[kg]" since a has changed.
 
   //   try {
-  //     cout << (a+b) << endl;  
+  //     cout << (a+b) << endl;
   //   } catch (const std::exception& ex) {
   //     cout << ex.what() << endl; // Prints "Units do not match - [m] cannot be converted to [kg]"
   //   }
@@ -42,15 +43,12 @@ int main() {
   //   cout << "Unexpected exception!" << endl;
   // }
   // return 100;
+  std::string input = "4" ; 
+  std::string sizeInput = input.substr(0, input.find("["));
+  std::stringstream sizeStream(sizeInput);
+  double tempSize =3 ;
+  sizeStream >> tempSize;
+  cout << tempSize << endl ;
 
-  long double d = 3469692.6031362;
-  std::cout << d << std::endl;
-  std::cout << std::fixed;
-  std::cout << d << std::endl;
-  std::cout << std::showpoint;
-  std::cout << d << std::endl;
-  
-
-    return 0;
-
+  return 0;
 }

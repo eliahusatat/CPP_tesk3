@@ -219,7 +219,7 @@ PhysicalNumber PhysicalNumber::operator+() const
     return *this;
 }
 
-PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber &pn) const 
+PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber &pn) const
 {
 
     bool flag = false;
@@ -278,7 +278,7 @@ PhysicalNumber &PhysicalNumber::operator--()
     return *this;
 }
 
-bool PhysicalNumber::operator>(const PhysicalNumber &pn) const 
+bool PhysicalNumber::operator>(const PhysicalNumber &pn) const
 {
     bool flag = false;
 
@@ -309,7 +309,7 @@ bool PhysicalNumber::operator>(const PhysicalNumber &pn) const
         }
     }
 }
- bool PhysicalNumber::operator<(const PhysicalNumber &pn) const
+bool PhysicalNumber::operator<(const PhysicalNumber &pn) const
 {
     bool flag = false;
 
@@ -340,7 +340,7 @@ bool PhysicalNumber::operator>(const PhysicalNumber &pn) const
         }
     }
 }
- bool PhysicalNumber::operator>=(const PhysicalNumber &pn) const
+bool PhysicalNumber::operator>=(const PhysicalNumber &pn) const
 {
     bool flag = false;
 
@@ -371,7 +371,7 @@ bool PhysicalNumber::operator>(const PhysicalNumber &pn) const
         }
     }
 }
- bool PhysicalNumber::operator<=(const PhysicalNumber &pn) const
+bool PhysicalNumber::operator<=(const PhysicalNumber &pn) const
 {
     bool flag = false;
 
@@ -402,7 +402,7 @@ bool PhysicalNumber::operator>(const PhysicalNumber &pn) const
         }
     }
 }
- bool PhysicalNumber::operator==(const PhysicalNumber &pn) const
+bool PhysicalNumber::operator==(const PhysicalNumber &pn) const
 {
     bool flag = false;
 
@@ -433,7 +433,7 @@ bool PhysicalNumber::operator>(const PhysicalNumber &pn) const
     }
 }
 
- bool PhysicalNumber::operator!=(const PhysicalNumber &pn) const
+bool PhysicalNumber::operator!=(const PhysicalNumber &pn) const
 {
     bool flag = false;
 
@@ -465,7 +465,7 @@ bool PhysicalNumber::operator>(const PhysicalNumber &pn) const
     }
 }
 
-ostream &ariel::operator<<(ostream &out, const PhysicalNumber &pn) 
+ostream &ariel::operator<<(ostream &out, const PhysicalNumber &pn)
 {
     std::string unit;
     switch (pn.getunit())
@@ -506,33 +506,37 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
 {
     std::string input;
     is >> input;
-    if (input.find('[') == std::string::npos || input.find(']') == std::string::npos)
+    if (input.find('[') == std::string::npos || input.find(']') == std::string::npos || input.find('[') == 0 || input.find(']') == 0 || input.find('[') > input.find(']') || input.find('[') + 1 == input.find(']'))
         return is;
+
+    string unitInput = input.substr(input.find('[') + 1, input.find(']') - input.find('[') - 1);
+
+    if (unitInput.compare("g") == 0)
+        pn.setunit(G);
+    else if (unitInput.compare("km") == 0)
+        pn.setunit(KM);
+    else if (unitInput.compare("m") == 0)
+        pn.setunit(M);
+    else if (unitInput.compare("cm") == 0)
+        pn.setunit(CM);
+    else if (unitInput.compare("hour") == 0)
+        pn.setunit(HOUR);
+    else if (unitInput.compare("min") == 0)
+        pn.setunit(MIN);
+    else if (unitInput.compare("sec") == 0)
+        pn.setunit(SEC);
+    else if (unitInput.compare("ton") == 0)
+        pn.setunit(TON);
+    else if (unitInput.compare("kg") == 0)
+        pn.setunit(KG);
+    else
+        return is;
+
     string sizeInput = input.substr(0, input.find("["));
     stringstream sizeStream(sizeInput);
     double tempSize;
     sizeStream >> tempSize;
     pn.setsize(tempSize);
-    string unitInput = input.substr(input.find('[') + 1, input.find(']') - input.find('[') - 1);
-
-    if (unitInput.compare("g") == 0)
-        pn.setunit(G);
-    if (unitInput.compare("km") == 0)
-        pn.setunit(KM);
-    if (unitInput.compare("m") == 0)
-        pn.setunit(M);
-    if (unitInput.compare("cm") == 0)
-        pn.setunit(CM);
-    if (unitInput.compare("hour") == 0)
-        pn.setunit(HOUR);
-    if (unitInput.compare("min") == 0)
-        pn.setunit(MIN);
-    if (unitInput.compare("sec") == 0)
-        pn.setunit(SEC);
-    if (unitInput.compare("ton") == 0)
-        pn.setunit(TON);
-    if (unitInput.compare("kg") == 0)
-        pn.setunit(KG);
-
+    
     return is;
 }
