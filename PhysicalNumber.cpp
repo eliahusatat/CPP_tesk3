@@ -14,7 +14,9 @@ ariel::PhysicalNumber::PhysicalNumber(double size, Unit unit)
     this->size = size;
 }
 ariel::PhysicalNumber::~PhysicalNumber() {}
-
+/*
+This function helps to know if 2 PhysicalNumber are on the same units group.
+*/
 bool ariel::CheckIsthesameGroup(const PhysicalNumber &first, const PhysicalNumber &secend)
 {
 
@@ -168,7 +170,11 @@ PhysicalNumber ariel::ConvertType(PhysicalNumber &first, Unit type)
     }
     return first;
 }
-
+/*
+This function sums 2 PhysicalNumbers if they on the same units group by convert the smaller to the bigger.
+It gets help from sameGroup function
+and convertIfSameGroup function.
+*/
 PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber &pn) const
 {
 
@@ -190,7 +196,11 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber &pn) const
         return clone;
     }
 }
-
+/*
+This function sums 2 PhysicalNumbers if they on the same units group by convert the smaller to the bigger,
+and put it in the first number.
+It gets help from operator+ function.
+*/
 PhysicalNumber &PhysicalNumber::operator+=(const PhysicalNumber &pn)
 {
 
@@ -213,12 +223,18 @@ PhysicalNumber &PhysicalNumber::operator+=(const PhysicalNumber &pn)
         return *this;
     }
 }
-
+/*
+This function changes the data of the unit to the it's positive number.
+*/
 PhysicalNumber PhysicalNumber::operator+() const
 {
     return *this;
 }
-
+/*
+This function subtracts 2 PhysicalNumbers if they on the same units group by convert the smaller to the bigger.
+It gets help from sameGroup function
+and convertIfSameGroup function.
+*/
 PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber &pn) const
 {
 
@@ -239,6 +255,11 @@ PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber &pn) const
         return clone;
     }
 }
+/*
+This function subtracts 2 PhysicalNumbers if they on the same units group by convert the smaller to the bigger,
+and put it in the first number.
+It gets help from operator- function.
+*/
 PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &pn)
 {
 
@@ -261,17 +282,25 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &pn)
         return *this;
     }
 }
-
+/*
+This function changes the data of the unit to the it's negative number.
+*/
 PhysicalNumber PhysicalNumber::operator-() const
 {
 
     return PhysicalNumber(this->getsize() * -1, this->getunit());
 }
+/*
+This function adds 1 to the data.
+*/
 PhysicalNumber &PhysicalNumber::operator++()
 {
     this->size = this->getsize() + 1;
     return *this;
 }
+/*
+This function subtracts 1 to the data.
+*/
 PhysicalNumber &PhysicalNumber::operator--()
 {
     this->size = this->getsize() - 1;
