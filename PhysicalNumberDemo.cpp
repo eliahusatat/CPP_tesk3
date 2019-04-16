@@ -43,9 +43,13 @@ int main() {
   // }
   // return 100;
 
-    PhysicalNumber n (3,Unit::M);
-    std::cin >> n ; 
-    cout << n  << endl;
+  long double d = 3469692.6031362;
+  std::cout << d << std::endl;
+  std::cout << std::fixed;
+  std::cout << d << std::endl;
+  std::cout << std::showpoint;
+  std::cout << d << std::endl;
+  
 
     return 0;
 

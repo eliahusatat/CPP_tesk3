@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <iomanip>
 #include "PhysicalNumber.h"
 #include <exception>
 
@@ -213,7 +214,10 @@ PhysicalNumber &PhysicalNumber::operator+=(const PhysicalNumber &pn)
     }
 }
 
-const PhysicalNumber PhysicalNumber::operator+() { return *this; }
+const PhysicalNumber PhysicalNumber::operator+()
+{
+    return *this;
+}
 
 PhysicalNumber PhysicalNumber::operator-(PhysicalNumber &pn)
 {
@@ -260,8 +264,8 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &pn)
 
 const PhysicalNumber PhysicalNumber::operator-()
 {
-    this->size = -1 * this->getsize();
-    return PhysicalNumber(this->getsize(), this->getunit());
+
+    return PhysicalNumber(this->getsize() * -1, this->getunit());
 }
 PhysicalNumber &PhysicalNumber::operator++()
 {
@@ -494,14 +498,16 @@ ostream &ariel::operator<<(ostream &out, const PhysicalNumber &pn)
         unit = "g";
         break;
     }
-    return (out << pn.getsize() << "[" << unit << "]");
+
+    return (out << pn.size << "[" << unit << "]");
 }
 
 istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
 {
     std::string input;
     is >> input;
-
+    if (input.find('[') == std::string::npos || input.find(']') == std::string::npos)
+        return is;
     string sizeInput = input.substr(0, input.find("["));
     stringstream sizeStream(sizeInput);
     double tempSize;
